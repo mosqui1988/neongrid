@@ -1,0 +1,403 @@
+#version 440
+// NeonGrid · escena animada a resolucion LOGICA (960x600 o 960x540): un fragmento = un pixel del lienzo.
+// Plantilla: construir-capas.py sustituye @CONSTANTES@ (camara, rutas) y compila con qsb.
+// Todo lo que se mueve se calcula aqui a partir de texturas estaticas: ventanas (escena-*.png),
+// coches (analitico sobre los carriles), tren (via.png), voladores, balizas y lluvia.
+// Oclusion: cada elemento movil tiene su distancia y solo se pinta si esta mas cerca que geo.r*30.
+// Sin operaciones de bits ni round(): compila tambien a GLSL 1.20 / ES 3.00.
+
+layout(location = 0) in vec2 qt_TexCoord0;
+layout(location = 0) out vec4 fragColor;
+
+layout(std140, binding = 0) uniform buf {
+    mat4 qt_Matrix;
+    float qt_Opacity;
+    float tf;        // fotograma (8 por segundo)
+    float oy;        // recorte vertical del lienzo (0 en 16x10)
+    float lh;        // alto de la capa en pixeles logicos
+    float modoA;     // fila de paleta del modo A (0 noche, 1 dia, 2 amanecer, 3 atardecer)
+    float modoB;
+    float mezcla;    // 0 = solo A, 1 = solo B (fundido tramado)
+    float noche;     // 0..1: estelas y faros
+    float lluvia;    // 0..1
+    float trafico;   // 0..1
+    float calma;     // 1 = sin parpadeos, menos movimiento
+    float calidad;   // 0 estatico, 1 baja, 2 alta
+    float sincro;    // indice de paleta del inicio de la rampa de la baliza de la torre
+    float nieblaD;   // escala de la niebla (3300 noche, 2600 resto)
+    vec4 bruma;      // color de bruma del modo dominante
+    vec4 astroSol;   // x, y (centro, pixeles del lienzo), radio, opacidad (0 = no se pinta)
+    vec4 astroLuna;  // idem
+    float faseLuna;  // elongacion Sol-Luna en radianes: 0 nueva, pi llena; creciente 0..pi (iluminada a la derecha)
+};
+layout(binding = 1) uniform sampler2D escA;
+layout(binding = 2) uniform sampler2D escB;
+layout(binding = 3) uniform sampler2D geo;
+layout(binding = 4) uniform sampler2D via;
+layout(binding = 5) uniform sampler2D atlas;
+
+const float LW = 960.0;
+const float CX = @CX@, HY = @HY@, FOC = @FOC@, CAMH = @CAMH@;
+const float SA = @SA@, CA = @CA@, Z0 = @Z0@, X0 = @X0@;
+const float RLEN = @RLEN@, NF = @NF@, TRAIN_LEN = @TRAIN_LEN@;
+const float U_MIN = @U_MIN@, V_MIN = @V_MIN@, AVE = @AVE@;
+
+float T;          // fotograma actual
+float ROW;        // fila de paleta para los colores dinamicos
+
+vec4 texel(sampler2D s, vec2 lp) { return texture(s, (lp + 0.5) / vec2(LW, lh)); }
+vec3 pal(float row, float i) { return texture(atlas, vec2((i + 0.5) / 64.0, (row + 0.5) / 16.0)).rgb; }
+vec3 P(float i) { return pal(ROW, i); }
+float b255(float v) { return floor(v * 255.0 + 0.5); }
+float bit(float v, float b) { return mod(floor(v / b), 2.0); }
+float h11(float n) { return fract(sin(n * 12.9898 + 4.1414) * 43758.5453); }
+float bayer(vec2 p) {
+    vec2 a = mod(p, 2.0), b = mod(floor(p / 2.0), 2.0);
+    return 4.0 * mod(2.0 * a.x + 3.0 * a.y, 4.0) + mod(2.0 * b.x + 3.0 * b.y, 4.0);
+}
+
+// indices de paleta: ink 0-3, slate 4-7, mist 8-11, glass 12-15, cyan 16-19, mag 20-23, vio 24-27,
+// amb 28-31, red 32-35, grn 36-39, wht 40-41
+float fogk(float Z, float y) {
+    float f = 1.0 - exp(-max(0.0, Z - 380.0) / nieblaD);
+    float low = exp(-max(0.0, y) / 70.0) * min(1.0, Z / 2200.0) * 0.38;
+    return clamp(f * 0.92 + low, 0.0, 0.96);
+}
+vec3 snap(vec3 c) {   // color de la paleta cerrada mas cercano (misma metrica que el concepto)
+    float best = 1e9; vec3 bc = c;
+    for (int i = 0; i < 42; i++) {
+        vec3 p = P(float(i)); vec3 d = (p - c) * 255.0;
+        float e = d.r * d.r * 2.0 + d.g * d.g * 3.0 + d.b * d.b;
+        if (e < best) { best = e; bc = p; }
+    }
+    return bc;
+}
+vec3 dyncol(vec3 c, float Z, float y, float k, float x) {   // niebla + calma de la zona de iconos + paleta
+    c = mix(c, bruma.rgb, fogk(Z, y) * k);
+    if (x < 380.0) c = mix(c, P(0.0), pow(1.0 - max(0.0, x) / 380.0, 1.4) * 0.62);
+    return snap(c);
+}
+void put(inout vec4 acc, vec3 c, float d) { if (d < acc.w) acc = vec4(c, d); }
+
+// ---------------------------------------------------------------- ventanas y fundido entre modos
+vec3 modeColor(sampler2D esc, float row, vec2 lp) {
+    vec3 e = floor(texel(esc, lp).rgb * 255.0 + 0.5);
+    float idx = mod(e.r, 64.0);
+    if (e.r >= 64.0 && calidad > 0.5) {
+        float a = e.b;
+        if (calma < 0.5 || mod(a, 5.0) < 0.5) {
+            float dur = 64.0 * (floor(e.g / 64.0) + 1.0);
+            float k = mod(T - a * 3.0, 768.0);
+            bool inside = k < dur;
+            if (inside && e.r >= 128.0 && calma < 0.5 && k >= 2.0 && k < 4.0) inside = false;   // parpadeo 2 Hz
+            if (inside) idx = mod(e.g, 64.0);
+        }
+    }
+    return pal(row, idx);
+}
+
+// ---------------------------------------------------------------- proyeccion inversa sobre un plano horizontal
+vec2 toLocal(vec2 sp, float Y) {
+    float Z = FOC * (CAMH - Y) / (sp.y - HY);
+    float X = (sp.x - CX) * Z / FOC;
+    return vec2((X - X0) * SA + (Z - Z0) * CA, (X - X0) * CA - (Z - Z0) * SA);
+}
+vec4 bounds(vec2 cp, float Y) {      // (umin, umax, vmin, vmax) del pixel sobre el plano Y
+    vec2 a = toLocal(cp + vec2(-0.5, -0.5), Y), b = toLocal(cp + vec2(0.5, -0.5), Y);
+    vec2 c = toLocal(cp + vec2(-0.5, 0.5), Y), d = toLocal(cp + vec2(0.5, 0.5), Y);
+    return vec4(min(min(a.x, b.x), min(c.x, d.x)), max(max(a.x, b.x), max(c.x, d.x)),
+                min(min(a.y, b.y), min(c.y, d.y)), max(max(a.y, b.y), max(c.y, d.y)));
+}
+float ZC, DC, XS, ZB, DB;   // profundidad y distancia del centro del pixel en los planos de luces y carroceria
+
+vec3 bodyColor(float h) {
+    if (h < 0.18) return vec3(0.784, 0.627, 0.157);           // taxi
+    if (h < 0.30) return vec3(0.118, 0.353, 0.431);           // bus
+    if (h < 0.50) return vec3(0.157, 0.180, 0.314);
+    if (h < 0.65) return vec3(0.275, 0.157, 0.353);
+    if (h < 0.80) return vec3(0.110, 0.235, 0.282);
+    return vec3(0.353, 0.133, 0.235);
+}
+
+// un carril de la avenida: coches periodicos (como animar.py: m tipos, separacion gap, bucle de NF fotogramas)
+void laneCars(inout vec4 acc, vec4 g0, vec4 g1, float vl, float dirn, float gap, float m, float span, float li) {
+    bool lv = g0.w >= vl - 0.75 && g0.z <= vl + 0.75 && (g0.z <= vl - 0.65 || g0.w >= vl + 0.65 || g0.w - g0.z > 1.3);
+    bool bv = g1.w >= vl - 1.0 && g1.z <= vl + 1.0;
+    if (!lv && !bv) return;
+    float Pd = m * gap;
+    float shift = dirn * (Pd / NF) * T;
+    float TR = noche > 0.45 ? 60.0 : 0.0;
+    float nmax = span / Pd;
+    float dens = 0.35 + 0.65 * trafico;
+    for (int k = 0; k < 4; k++) {
+        if (float(k) >= m) break;
+        float hk = h11(li * 7.31 + float(k) * 1.7);
+        float L = hk < 0.30 && hk >= 0.18 ? 12.0 : (hk > 0.92 ? 2.0 : 4.6);
+        float base = U_MIN + mod(float(k) * gap + (hk - 0.5) * 0.6 * gap + shift, Pd);
+        float e0 = dirn > 0.0 ? -TR : 0.0, e1 = dirn > 0.0 ? L : L + TR;
+        float j0 = floor((g0.x - base - e0) / Pd);
+        for (int q = 0; q < 2; q++) {
+            float j = j0 + float(q);
+            if (j < 0.0 || j >= nmax) continue;
+            if (h11(li * 31.7 + float(k) * 5.3 + j * 0.917) > dens) continue;
+            float uc = base + j * Pd;
+            // carroceria (solo si se ve de mas de 3 px, como en el concepto)
+            if (bv && FOC / ZB * L >= 3.0 && g1.y >= uc && g1.x <= uc + L) {
+                put(acc, dyncol(bodyColor(hk), ZB, 1.0, 1.0, XS), DB);
+                continue;
+            }
+            if (!lv || g0.y < uc + e0 || g0.x > uc + e1) continue;
+            float um = clamp(0.5 * (g0.x + g0.y), uc + e0, uc + e1);
+            float r = um - uc;
+            vec3 c;
+            bool toward = dirn < 0.0;
+            if (r >= 0.0 && r <= L) {
+                if (r > 1.0 && L > 3.0) continue;
+                c = noche > 0.45 ? (toward ? (hk < 0.18 ? P(31.0) : P(41.0)) : P(35.0)) : (toward ? P(10.0) : P(33.0));
+                put(acc, dyncol(c, ZC, 1.0, 0.4, XS), DC - 0.2);
+            } else if (TR > 0.0) {
+                float tt = toward ? (r - L) / TR : -r / TR;
+                float s = floor(clamp(tt, 0.0, 0.999) * 4.0);
+                if (toward) c = s < 0.5 ? P(41.0) : (s < 1.5 ? P(40.0) : (s < 2.5 ? P(10.0) : P(9.0)));
+                else c = s < 0.5 ? P(34.0) : (s < 1.5 ? P(33.0) : (s < 2.5 ? P(32.0) : P(3.0)));
+                put(acc, dyncol(c, ZC, 1.0, 0.55, XS), DC + 0.05);
+            }
+        }
+    }
+}
+
+// calles transversales: se mueven en v; estelas cortas
+void crossCars(inout vec4 acc, vec4 g0, vec4 g1, float uc, float dirn, float ci) {
+    bool lu = g0.y >= uc - 0.9 && g0.x <= uc + 0.9;
+    if (!lu) return;
+    float gap = 260.0, m = 2.0, Pd = 520.0, span = 2080.0;
+    float shift = dirn * (Pd / NF) * T;
+    float TR = noche > 0.45 ? 16.0 : 0.0;
+    float L = 4.6;
+    for (int k = 0; k < 2; k++) {
+        float hk = h11(100.0 + ci * 3.1 + float(k));
+        float base = V_MIN + mod(float(k) * gap + (hk - 0.5) * 120.0 + shift, Pd);
+        float e0 = dirn > 0.0 ? -TR : 0.0, e1 = dirn > 0.0 ? L : L + TR;
+        float j0 = floor((g0.z - base - e0) / Pd);
+        for (int q = 0; q < 2; q++) {
+            float j = j0 + float(q);
+            if (j < 0.0 || j >= span / Pd) continue;
+            float vc = base + j * Pd;
+            if (vc > -AVE - 4.0 && vc < AVE + 4.0) continue;
+            if (h11(ci * 17.3 + float(k) * 3.7 + j) > 0.35 + 0.65 * trafico) continue;
+            if (g0.w < vc + e0 || g0.z > vc + e1) continue;
+            float r = clamp(0.5 * (g0.z + g0.w), vc + e0, vc + e1) - vc;
+            bool toward = dirn < 0.0;
+            vec3 c;
+            if (r >= 0.0 && r <= L) {
+                if (r > 1.0) continue;
+                c = noche > 0.45 ? (toward ? P(41.0) : P(35.0)) : (toward ? P(10.0) : P(33.0));
+                put(acc, dyncol(c, ZC, 1.0, 0.4, XS), DC - 0.2);
+            } else if (TR > 0.0) {
+                float tt = toward ? (r - L) / TR : -r / TR;
+                float s = floor(clamp(tt, 0.0, 0.999) * 4.0);
+                if (toward) c = s < 0.5 ? P(41.0) : (s < 1.5 ? P(40.0) : (s < 2.5 ? P(10.0) : P(9.0)));
+                else c = s < 0.5 ? P(34.0) : (s < 1.5 ? P(33.0) : (s < 2.5 ? P(32.0) : P(3.0)));
+                put(acc, dyncol(c, ZC, 1.0, 0.55, XS), DC + 0.05);
+            }
+        }
+    }
+}
+
+// ---------------------------------------------------------------- tren (via.png guarda s y la parte de la seccion)
+void train(inout vec4 acc, vec2 lp, vec2 cp) {
+    vec3 v = floor(texel(via, lp).rgb * 255.0 + 0.5);
+    if (v.b < 128.0) return;
+    float ti = floor((v.b - 128.0) / 64.0);
+    float part = mod(v.b - 128.0, 64.0);
+    float s = (v.r * 256.0 + v.g) / 65535.0 * RLEN;
+    float dirn = ti < 0.5 ? 1.0 : -1.0;
+    float kc = ti < 0.5 ? 6.0 : 4.0;
+    float sp = RLEN / kc;
+    float d = mod(s - (ti * sp * 0.37 + dirn * (sp / NF) * T), sp);
+    float Z = FOC * (CAMH - 22.0) / max(1.0, cp.y - HY);
+    if (cp.y <= HY + 1.0) Z = 9000.0;
+    float dist = Z;
+    vec3 c; float fk;
+    if (d < TRAIN_LEN) {
+        float seg = TRAIN_LEN / 15.0;
+        float kk = floor(d / seg);
+        float f = (d - kk * seg) / seg;
+        if (f >= 0.92) return;
+        bool lit = noche > 0.45;
+        if (part < 0.5) { c = vec3(0.588, 0.627, 0.729); fk = 1.0; }
+        else if (part < 1.5) { c = vec3(0.745, 0.784, 0.863); fk = 1.0; }
+        else if (part < 2.5) {
+            if (mod(kk, 5.0) != 2.0 && f < 0.8) { c = lit ? (mod(kk, 5.0) == 4.0 ? P(31.0) : P(19.0)) : P(10.0); fk = 0.5; }
+            else { c = vec3(0.588, 0.627, 0.729); fk = 1.0; }
+        } else { c = P(22.0); fk = 0.5; }
+        put(acc, dyncol(c, Z, 20.0, fk, cp.x), dist - 50.0);
+    } else if (noche > 0.45 && part > 2.5) {
+        float tt = dirn > 0.0 ? (sp - d) / 70.0 : (d - TRAIN_LEN) / 70.0;
+        if (tt < 0.0 || tt >= 1.0) return;
+        float s4 = floor(tt * 4.0);
+        c = s4 < 0.5 ? P(22.0) : (s4 < 1.5 ? P(21.0) : (s4 < 2.5 ? P(20.0) : P(24.0)));
+        put(acc, dyncol(c, Z, 20.0, 0.5, cp.x), dist - 50.0);
+    }
+}
+
+// ---------------------------------------------------------------- coches voladores (sprites del atlas)
+void flyer(inout vec4 acc, vec2 p, vec3 A, vec3 B, float ph, float neon, float fi) {
+    float fr = fract(T / NF + ph);
+    vec3 q = mix(A, B, fr);
+    float X = X0 + q.x * SA + q.y * CA, Z = Z0 + q.x * CA - q.y * SA;
+    if (Z < 150.0) return;
+    float sx = CX + FOC * X / Z, sy = HY - FOC * (q.z - CAMH) / Z;
+    if (sx < -20.0 || sx > LW + 20.0 || sy < 18.0) return;
+    float s = FOC / Z;
+    float w = s > 0.6 ? 11.0 : (s > 0.2 ? 7.0 : 3.0);
+    float h = s > 0.6 ? 6.0 : (s > 0.2 ? 4.0 : 2.0);
+    float ax = s > 0.6 ? 0.0 : (s > 0.2 ? 12.0 : 20.0);
+    float x0 = floor(sx + 0.5) - floor(w / 2.0), y0 = floor(sy + 0.5) - floor(h / 2.0);
+    float i = p.x - x0, j = p.y - y0;
+    if (i < 0.0 || j < 0.0 || i >= w || j >= h) return;
+    float XA = X0 + A.x * SA + A.y * CA, ZA = Z0 + A.x * CA - A.y * SA;
+    float XB = X0 + B.x * SA + B.y * CA, ZB_ = Z0 + B.x * CA - B.y * SA;
+    bool right = CX + FOC * XB / ZB_ > CX + FOC * XA / ZA;
+    float ii = right ? i : w - 1.0 - i;
+    float code = floor(texture(atlas, vec2((ax + ii + 0.5) / 64.0, (4.0 + j + 0.5) / 16.0)).r * 255.0 / 50.0 + 0.5);
+    bool lit = noche > 0.45;
+    float dist = length(vec2(X, Z));
+    float f = 0.8;
+    float jl = h > 2.0 ? 1.0 : 0.0;
+    if (j == jl && i == (right ? w - 1.0 : 0.0)) { put(acc, dyncol(P(41.0), Z, q.z, 0.4 * f, p.x), dist - 0.1); return; }
+    if (j == jl && i == (right ? 0.0 : w - 1.0)) {
+        bool on = mod(floor((T + fi * 3.0) / 4.0), 2.0) < 0.5 || calma > 0.5;
+        put(acc, dyncol(on ? P(34.0) : P(32.0), Z, q.z, 0.4 * f, p.x), dist - 0.1); return;
+    }
+    vec3 c; float k;
+    if (code < 0.5) return;
+    else if (code < 1.5) { c = P(6.0); k = 1.0; }
+    else if (code < 2.5) { c = P(19.0); k = 0.5; }
+    else if (code < 3.5) { c = lit ? P(neon + 2.0) : P(neon + 1.0); k = 0.4; }
+    else { if (!lit) return; c = P(neon); k = 0.7; }
+    put(acc, dyncol(c, Z, q.z, k * f, p.x), dist);
+}
+
+// ---------------------------------------------------------------- balizas (pulso lento: destello de 3 fotogramas cada 3-4 s)
+float beaconLvl(vec2 cp, float per) {
+    float k = mod(T + floor(h11(cp.x * 13.1 + cp.y * 7.7) * per), per);
+    return k < 3.0 ? 3.0 : (k < 8.0 ? 2.0 : 1.0);
+}
+
+// Sol y luna: discos de pixel art con halo tramado. Solo se pintan donde la capa geo marca CIELO (bit 4), asi que el
+// horizonte y los edificios los ocultan y salen "por detras" de la ciudad al subir o bajar.
+vec3 astros(vec3 col, vec2 cp, float bay) {
+    if (astroSol.w > 0.0) {
+        vec2 d = cp + 0.5 - astroSol.xy;
+        float dist = length(d), r = astroSol.z;
+        vec3 nucleo = ROW < 1.5 && ROW > 0.5 ? vec3(1.0, 0.96, 0.84) : vec3(1.0, 0.89, 0.76);
+        if (dist <= r) col = mix(col, nucleo, astroSol.w);
+        else if (dist <= r + 1.5) col = mix(col, vec3(1.0, 0.84, 0.62), 0.55 * astroSol.w);
+        else if (dist <= r + 10.0) {
+            float a = 0.5 * (1.0 - (dist - r - 1.5) / 8.5);
+            if (a > bay * 0.5) col = mix(col, vec3(1.0, 0.80, 0.58), 0.30 * astroSol.w);
+        }
+    }
+    if (astroLuna.w > 0.0) {
+        vec2 d = cp + 0.5 - astroLuna.xy;
+        float dist = length(d), r = astroLuna.z;
+        float k = cos(faseLuna);
+        float lleno = 0.5 - 0.5 * k;                       // fraccion iluminada
+        if (dist <= r) {
+            float u = d.x / r, v = d.y / r;
+            float s = sqrt(max(0.0, 1.0 - v * v));
+            float uu = sin(faseLuna) > 0.0 ? u : -u;
+            if (uu >= k * s) {
+                vec3 c = vec3(0.84, 0.89, 0.95);
+                vec2 q = floor(d);                           // craters: pocos pixeles mas oscuros, fijos
+                if (h11(q.x * 7.3 + q.y * 3.1) > 0.86 && dist < r - 1.5) c = vec3(0.62, 0.69, 0.80);
+                col = mix(col, c, astroLuna.w);
+            } else {
+                col = mix(col, vec3(0.13, 0.16, 0.26), 0.55 * astroLuna.w);   // cara oscura apenas visible
+            }
+        } else if (dist <= r + 9.0 && lleno > 0.05) {
+            float a = (0.38 * lleno) * (1.0 - (dist - r) / 9.0);
+            if (a > bay * 0.4) col = mix(col, vec3(0.55, 0.70, 0.92), 0.28 * astroLuna.w);
+        }
+    }
+    return col;
+}
+
+void main() {
+    T = tf;
+    vec2 lp = floor(qt_TexCoord0 * vec2(LW, lh));
+    vec2 cp = lp + vec2(0.0, oy);                       // coordenadas del lienzo 960x600
+    float bay = (bayer(lp) + 0.5) / 16.0;
+    bool useB = mezcla > 0.0 && bay < mezcla;
+    ROW = mezcla < 0.5 ? modoA : modoB;
+    vec3 col = useB ? modeColor(escB, modoB, lp) : modeColor(escA, modoA, lp);
+
+    vec4 g = texel(geo, lp);
+    float zs = b255(g.r);
+    float flags = b255(g.g);
+    float depthS = zs > 254.5 ? 1e9 : zs * 30.0;
+    if (bit(flags, 4.0) > 0.5) col = astros(col, cp, bay);
+
+    // balizas y su halo de 1 px
+    if (calidad > 0.5) {
+        float tw = bit(flags, 16.0), bc = bit(flags, 8.0);
+        if (tw > 0.5) col = P(sincro + beaconLvl(cp, 24.0));
+        else if (bc > 0.5) col = P(32.0 + beaconLvl(cp, 32.0));
+        else {
+            for (int n = 0; n < 4; n++) {
+                vec2 o = n == 0 ? vec2(1.0, 0.0) : (n == 1 ? vec2(-1.0, 0.0) : (n == 2 ? vec2(0.0, 1.0) : vec2(0.0, -1.0)));
+                float fn = b255(texel(geo, lp + o).g);
+                if (bit(fn, 16.0) > 0.5 && beaconLvl(cp + o, 24.0) > 2.5) col = P(sincro + 1.0);
+                else if (bit(fn, 8.0) > 0.5 && beaconLvl(cp + o, 32.0) > 2.5) col = P(33.0);
+            }
+        }
+    }
+
+    if (calidad > 0.5) {
+        vec4 acc = vec4(0.0, 0.0, 0.0, 1e9);
+        // coches: solo bajo el horizonte
+        if (cp.y - 0.5 > HY + 0.6) {
+            vec4 g0 = bounds(cp, 0.7);
+            vec4 g1 = bounds(cp, 1.2);
+            float Zc = FOC * (CAMH - 0.7) / (cp.y - HY);
+            float Xc = (cp.x - CX) * Zc / FOC;
+            ZC = Zc; DC = length(vec2(Xc, Zc)); XS = cp.x;
+            ZB = FOC * (CAMH - 1.2) / (cp.y - HY); DB = length(vec2((cp.x - CX) * ZB / FOC, ZB));
+            if (Zc > 240.0 && Zc < 6000.0) {
+                if (g0.w > -17.0 && g0.z < 17.0) {
+@LANES@
+                }
+                if (calidad > 1.5) {
+@CROSS@
+                }
+            }
+        }
+        train(acc, lp, cp);
+@FLYERS@
+        if (acc.w < depthS) col = acc.rgb;
+    }
+
+    // lluvia: una gota lejana por columna (1x3) y gotas cercanas inclinadas (1x6)
+    if (lluvia > 0.01 && calidad > 0.5) {
+        float span = 584.0;
+        float x = cp.x;
+        float hf = h11(x * 1.37 + 3.1);
+        float k1 = calidad > 1.5 ? 0.94 : 0.5;
+        if (hf < k1 * lluvia) {
+            float yd = 16.0 + mod(h11(x * 3.3 + 1.0) * span + span * T / NF, span);
+            float dy = cp.y - floor(yd);
+            if (dy >= 0.0 && dy < 3.0) col = x < 380.0 ? (x < 200.0 ? P(4.0) : P(5.0)) : (cp.y < HY ? P(5.0) : P(6.0));
+        }
+        for (int c = 0; c < 2; c++) {
+            float xc = x + float(c);
+            if (h11(xc * 5.1 + 7.0) < 0.17 * lluvia) {
+                float yd = 16.0 + mod(h11(xc * 2.7 + 9.0) * span + 2.0 * span * T / NF, span);
+                float dy = cp.y - floor(yd);
+                bool hit = c == 0 ? (dy >= 0.0 && dy < 3.0) : (dy >= 3.0 && dy < 6.0);
+                if (hit) col = (c == 1 && dy >= 5.0) ? (x >= 260.0 ? P(9.0) : P(6.0)) : (x >= 260.0 ? P(7.0) : P(5.0));
+            }
+        }
+    }
+    fragColor = vec4(col, 1.0) * qt_Opacity;
+}

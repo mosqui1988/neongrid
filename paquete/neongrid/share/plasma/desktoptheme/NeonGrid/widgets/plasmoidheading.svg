@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="4" height="87" viewBox="0 0 4 87" shape-rendering="crispEdges">
+<g id="header-topleft" transform="translate(0,0)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="2" fill="#0f1325" fill-opacity="0.7"/>
+</g>
+<g id="header-top" transform="translate(0,3)">
+<rect width="4" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="2" fill="#0f1325" fill-opacity="0.7"/>
+</g>
+<g id="header-topright" transform="translate(0,6)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="2" fill="#0f1325" fill-opacity="0.7"/>
+</g>
+<g id="header-left" transform="translate(0,9)">
+<rect width="2" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="4" fill="#0f1325" fill-opacity="0.7"/>
+</g>
+<g id="header-center" transform="translate(0,14)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.7"/>
+</g>
+<g id="header-right" transform="translate(0,19)">
+<rect width="2" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="4" fill="#0f1325" fill-opacity="0.7"/>
+</g>
+<g id="header-bottomleft" transform="translate(0,24)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="1" fill="#0f1325" fill-opacity="0.7"/>
+<rect x="0" y="1" width="2" height="1" fill="#066f81"/>
+</g>
+<g id="header-bottom" transform="translate(0,27)">
+<rect width="4" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="1" fill="#0f1325" fill-opacity="0.7"/>
+<rect x="0" y="1" width="4" height="1" fill="#066f81"/>
+</g>
+<g id="header-bottomright" transform="translate(0,30)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="1" fill="#0f1325" fill-opacity="0.7"/>
+<rect x="0" y="1" width="2" height="1" fill="#066f81"/>
+</g>
+<g id="header-hint-top-margin" transform="translate(0,33)">
+<rect width="1" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="2" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="header-hint-bottom-margin" transform="translate(0,36)">
+<rect width="1" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="2" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="header-hint-left-margin" transform="translate(0,39)">
+<rect width="2" height="1" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="1" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="header-hint-right-margin" transform="translate(0,41)">
+<rect width="2" height="1" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="1" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="footer-topleft" transform="translate(0,43)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="1" fill="#066f81"/>
+<rect x="0" y="1" width="2" height="1" fill="#0f1325" fill-opacity="0.7"/>
+</g>
+<g id="footer-top" transform="translate(0,46)">
+<rect width="4" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="1" fill="#066f81"/>
+<rect x="0" y="1" width="4" height="1" fill="#0f1325" fill-opacity="0.7"/>
+</g>
+<g id="footer-topright" transform="translate(0,49)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="1" fill="#066f81"/>
+<rect x="0" y="1" width="2" height="1" fill="#0f1325" fill-opacity="0.7"/>
+</g>
+<g id="footer-left" transform="translate(0,52)">
+<rect width="2" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="4" fill="#0f1325" fill-opacity="0.7"/>
+</g>
+<g id="footer-center" transform="translate(0,57)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.7"/>
+</g>
+<g id="footer-right" transform="translate(0,62)">
+<rect width="2" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="4" fill="#0f1325" fill-opacity="0.7"/>
+</g>
+<g id="footer-bottomleft" transform="translate(0,67)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="2" fill="#0f1325" fill-opacity="0.7"/>
+</g>
+<g id="footer-bottom" transform="translate(0,70)">
+<rect width="4" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="2" fill="#0f1325" fill-opacity="0.7"/>
+</g>
+<g id="footer-bottomright" transform="translate(0,73)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="2" fill="#0f1325" fill-opacity="0.7"/>
+</g>
+<g id="footer-hint-top-margin" transform="translate(0,76)">
+<rect width="1" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="2" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="footer-hint-bottom-margin" transform="translate(0,79)">
+<rect width="1" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="2" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="footer-hint-left-margin" transform="translate(0,82)">
+<rect width="2" height="1" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="1" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="footer-hint-right-margin" transform="translate(0,84)">
+<rect width="2" height="1" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="1" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="hint-stretch-borders" transform="translate(0,86)">
+<rect width="1" height="1" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="1" fill="#f0f" fill-opacity="0"/>
+</g>
+</svg>

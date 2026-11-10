@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Instalar NeonGrid
+Name[en]=Install NeonGrid
+Comment=Instala el tema NeonGrid para KDE Plasma 6
+Comment[en]=Installs the NeonGrid theme for KDE Plasma 6
+Exec=sh -c "cd \\"\\${1%%/*}\\" && exec ./instalar.sh --grafico" _ %k
+Icon=preferences-desktop-theme
+Terminal=false
+Categories=Settings;

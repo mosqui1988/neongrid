@@ -1,0 +1,5 @@
+# Repositorios git que NeonGrid vigila (uno por línea; se admite ~ al inicio).
+# Si no hay ninguna ruta valida aqui (o el fichero no existe), se buscan repos solos en ~/Proyectos ~/projects ~/src ~/dev ~/code.
+# En cuanto pongas una ruta valida, se vigilan SOLO las que listes.
+# ~/Proyectos/mi-proyecto
+# ~/src/otro-repo

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="4" height="237" viewBox="0 0 4 237" shape-rendering="crispEdges">
+<g id="north-active-tab-topleft" transform="translate(0,0)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="2" y="0" width="2" height="1" fill="#00e5ff"/>
+<rect x="1" y="1" width="3" height="1" fill="#00e5ff"/>
+<rect x="0" y="2" width="4" height="2" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="north-active-tab-top" transform="translate(0,5)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="2" fill="#00e5ff"/>
+<rect x="0" y="2" width="4" height="2" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="north-active-tab-topright" transform="translate(0,10)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="1" fill="#00e5ff"/>
+<rect x="0" y="1" width="3" height="1" fill="#00e5ff"/>
+<rect x="0" y="2" width="4" height="2" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="north-active-tab-left" transform="translate(0,15)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="north-active-tab-center" transform="translate(0,20)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="north-active-tab-right" transform="translate(0,25)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="north-active-tab-bottomleft" transform="translate(0,30)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="2" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="1" y="2" width="3" height="1" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="2" y="3" width="2" height="1" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="north-active-tab-bottom" transform="translate(0,35)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="north-active-tab-bottomright" transform="translate(0,40)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="2" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="0" y="2" width="3" height="1" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="0" y="3" width="2" height="1" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="north-active-tab-hint-top-margin" transform="translate(0,45)">
+<rect width="1" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="4" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="north-active-tab-hint-bottom-margin" transform="translate(0,50)">
+<rect width="1" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="4" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="north-active-tab-hint-left-margin" transform="translate(0,55)">
+<rect width="4" height="1" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="1" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="north-active-tab-hint-right-margin" transform="translate(0,57)">
+<rect width="4" height="1" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="1" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="south-active-tab-topleft" transform="translate(0,59)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="2" y="0" width="2" height="1" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="1" y="1" width="3" height="1" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="0" y="2" width="4" height="2" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="south-active-tab-top" transform="translate(0,64)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="south-active-tab-topright" transform="translate(0,69)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="1" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="0" y="1" width="3" height="1" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="0" y="2" width="4" height="2" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="south-active-tab-left" transform="translate(0,74)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="south-active-tab-center" transform="translate(0,79)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="south-active-tab-right" transform="translate(0,84)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="south-active-tab-bottomleft" transform="translate(0,89)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="2" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="1" y="2" width="3" height="1" fill="#00e5ff"/>
+<rect x="2" y="3" width="2" height="1" fill="#00e5ff"/>
+</g>
+<g id="south-active-tab-bottom" transform="translate(0,94)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="2" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="0" y="2" width="4" height="2" fill="#00e5ff"/>
+</g>
+<g id="south-active-tab-bottomright" transform="translate(0,99)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="2" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="0" y="2" width="3" height="1" fill="#00e5ff"/>
+<rect x="0" y="3" width="2" height="1" fill="#00e5ff"/>
+</g>
+<g id="south-active-tab-hint-top-margin" transform="translate(0,104)">
+<rect width="1" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="4" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="south-active-tab-hint-bottom-margin" transform="translate(0,109)">
+<rect width="1" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="4" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="south-active-tab-hint-left-margin" transform="translate(0,114)">
+<rect width="4" height="1" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="1" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="south-active-tab-hint-right-margin" transform="translate(0,116)">
+<rect width="4" height="1" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="1" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="west-active-tab-topleft" transform="translate(0,118)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="1" y="1" width="1" height="1" fill="#00e5ff"/>
+<rect x="2" y="0" width="2" height="4" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="0" y="2" width="2" height="2" fill="#00e5ff"/>
+</g>
+<g id="west-active-tab-top" transform="translate(0,123)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="west-active-tab-topright" transform="translate(0,128)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="1" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="0" y="1" width="3" height="1" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="0" y="2" width="4" height="2" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="west-active-tab-left" transform="translate(0,133)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="4" fill="#00e5ff"/>
+<rect x="2" y="0" width="2" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="west-active-tab-center" transform="translate(0,138)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="west-active-tab-right" transform="translate(0,143)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="west-active-tab-bottomleft" transform="translate(0,148)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="2" fill="#00e5ff"/>
+<rect x="1" y="2" width="1" height="1" fill="#00e5ff"/>
+<rect x="2" y="0" width="2" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="west-active-tab-bottom" transform="translate(0,153)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="west-active-tab-bottomright" transform="translate(0,158)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="2" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="0" y="2" width="3" height="1" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="0" y="3" width="2" height="1" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="west-active-tab-hint-top-margin" transform="translate(0,163)">
+<rect width="1" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="4" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="west-active-tab-hint-bottom-margin" transform="translate(0,168)">
+<rect width="1" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="4" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="west-active-tab-hint-left-margin" transform="translate(0,173)">
+<rect width="4" height="1" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="1" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="west-active-tab-hint-right-margin" transform="translate(0,175)">
+<rect width="4" height="1" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="1" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="east-active-tab-topleft" transform="translate(0,177)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="2" y="0" width="2" height="1" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="1" y="1" width="3" height="1" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="0" y="2" width="4" height="2" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="east-active-tab-top" transform="translate(0,182)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="east-active-tab-topright" transform="translate(0,187)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="2" y="1" width="1" height="1" fill="#00e5ff"/>
+<rect x="0" y="0" width="2" height="4" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="2" y="2" width="2" height="2" fill="#00e5ff"/>
+</g>
+<g id="east-active-tab-left" transform="translate(0,192)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="east-active-tab-center" transform="translate(0,197)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="east-active-tab-right" transform="translate(0,202)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="4" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="2" y="0" width="2" height="4" fill="#00e5ff"/>
+</g>
+<g id="east-active-tab-bottomleft" transform="translate(0,207)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="2" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="1" y="2" width="3" height="1" fill="#0f1325" fill-opacity="0.96"/>
+<rect x="2" y="3" width="2" height="1" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="east-active-tab-bottom" transform="translate(0,212)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="east-active-tab-bottomright" transform="translate(0,217)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="2" y="0" width="2" height="2" fill="#00e5ff"/>
+<rect x="2" y="2" width="1" height="1" fill="#00e5ff"/>
+<rect x="0" y="0" width="2" height="4" fill="#0f1325" fill-opacity="0.96"/>
+</g>
+<g id="east-active-tab-hint-top-margin" transform="translate(0,222)">
+<rect width="1" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="4" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="east-active-tab-hint-bottom-margin" transform="translate(0,227)">
+<rect width="1" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="4" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="east-active-tab-hint-left-margin" transform="translate(0,232)">
+<rect width="4" height="1" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="1" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="east-active-tab-hint-right-margin" transform="translate(0,234)">
+<rect width="4" height="1" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="1" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="hint-tile-center" transform="translate(0,236)">
+<rect width="1" height="1" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="1" fill="#ff00ff" fill-opacity="0"/>
+</g>
+</svg>

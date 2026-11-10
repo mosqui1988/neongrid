@@ -1,0 +1,13 @@
+# paquetes (se publican en Releases, no en el repo)
+dist/
+__pycache__/
+*.pyc
+# material de trabajo pesado o de origen incierto
+*.mp4
+*.webp
+concepto/*.png
+concepto/opus/*.png
+concepto/opus/capas/
+PROMPT.md
+DISEÑO.md
+ARQUITECTURA.md

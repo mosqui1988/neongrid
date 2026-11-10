@@ -1,0 +1,87 @@
+# NeonGrid - tema de Alacritty (0.13 o superior, formato TOML)
+# Uso: copia este fichero a ~/.config/alacritty/neongrid.toml y en alacritty.toml pon:
+#   [general]
+#   import = ["~/.config/alacritty/neongrid.toml"]
+# (Alacritty 0.14 o superior; en 0.13 `import = [...]` va suelto al principio del fichero, sin [general]).
+# Generado por tema/alacritty/generar.py a partir de tema/paleta.py: no lo edites a mano.
+
+[window]
+# Opacidad 0.85, igual que Konsole en NeonGrid. Para que sea translucido de verdad hace falta
+# compositor (KWin lo es por defecto en Plasma).
+opacity = 0.85
+# Desenfoque del fondo: en KDE Plasma (Wayland y X11) `blur = true` pide a KWin que desenfoque
+# lo que hay detras. Si KWin no lo aplica, activa el efecto "Blur" en Ajustes > Efectos de escritorio.
+blur = true
+padding = { x = 10, y = 8 }
+dynamic_padding = true
+
+[font]
+# Departure Mono se instala con NeonGrid (share/fonts/neongrid). Si falta, Alacritty usa la monoespaciada del sistema.
+normal = { family = "Departure Mono", style = "Regular" }
+size = 11.0
+
+[cursor]
+style = { shape = "Block", blinking = "Off" }   # sin parpadeo (regla NeonGrid: nada > 3 Hz y modo calma)
+
+[colors.primary]
+background = "#0b0e1a"
+foreground = "#e6f1ff"
+dim_foreground = "#acb8d8"
+
+[colors.cursor]
+text   = "#0b0e1a"
+cursor = "#00e5ff"
+
+[colors.vi_mode_cursor]
+text   = "#0b0e1a"
+cursor = "#ff2bd6"
+
+[colors.selection]
+text       = "#e6f1ff"
+background = "#004a64"
+
+[colors.search.matches]
+foreground = "#0b0e1a"
+background = "#ffb020"
+
+[colors.search.focused_match]
+foreground = "#0b0e1a"
+background = "#ff2bd6"
+
+[colors.footer_bar]
+foreground = "#e6f1ff"
+background = "#12172b"
+
+[colors.hints.start]
+foreground = "#0b0e1a"
+background = "#00e5ff"
+
+[colors.hints.end]
+foreground = "#0b0e1a"
+background = "#ff2bd6"
+
+[colors.normal]
+black   = "#181e38"
+red     = "#ff8496"
+green   = "#2ede78"
+yellow  = "#e8a018"
+blue    = "#78a0ff"
+magenta = "#ff7ce9"
+cyan    = "#1ecde6"
+white   = "#c8d6ec"
+
+[colors.bright]
+black   = "#46527e"
+red     = "#ffa0b0"
+green   = "#39ff88"
+yellow  = "#ffcd64"
+blue    = "#aac4ff"
+magenta = "#ffaaf2"
+cyan    = "#00e5ff"
+white   = "#e6f1ff"
+
+# ---------------------------------------------------------------------------
+# Prompt con lambda en verde acido (#39ff88). Alacritty no define el prompt: lo hace tu shell.
+#   bash  (~/.bashrc):  PS1='\[\e[38;2;57;255;136m\]λ\[\e[0m\] \[\e[38;2;0;229;255m\]\w\[\e[0m\] '
+#   zsh   (~/.zshrc):   PROMPT='%F{#39ff88}λ%f %F{#00e5ff}%~%f '
+#   fish  (config.fish): function fish_prompt; set_color 39ff88; echo -n "λ "; set_color 00e5ff; echo -n (prompt_pwd); set_color normal; echo -n " "; end

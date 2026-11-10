@@ -1,0 +1,7 @@
+# Agenda de NeonGrid: una línea por aviso, formato «HH:MM texto» (24 h).
+# Las líneas que empiezan por # se ignoran. Se muestra el próximo de hoy.
+09:00 Bloque de estudio
+11:00 Pausa
+11:30 Repaso
+16:00 Bloque de estudio
+18:30 Salir a pasear

@@ -1,0 +1,19 @@
+{
+  "KPackageStructure": "Plasma/Theme",
+  "KPlugin": {
+    "Id": "NeonGrid",
+    "Name": "NeonGrid",
+    "Name[es]": "NeonGrid",
+    "Description": "Pixel-art cyberpunk Plasma theme: neon top bar, bevelled popups, cyan and magenta accents",
+    "Description[es]": "Tema de Plasma cyberpunk en pixel art: barra superior de neon, ventanas emergentes biseladas, acentos cian y magenta",
+    "Authors": [
+      {
+        "Name": "NeonGrid"
+      }
+    ],
+    "Category": "Plasma Theme",
+    "License": "GPL-2.0+",
+    "Version": "1.0"
+  },
+  "X-Plasma-API": "5.0"
+}

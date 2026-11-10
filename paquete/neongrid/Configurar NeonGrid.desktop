@@ -1,0 +1,11 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Name=Configurar NeonGrid
+Name[en]=Configure NeonGrid
+Comment=Repos de git, agenda, consejos, ciudad y modo calma, sin editar ficheros
+Comment[en]=Git repos, agenda, tips, city and calm mode, without editing files
+Exec=sh -c "cd \\"\\${1%%/*}\\" && exec ./configurar.sh" _ %k
+Icon=preferences-system
+Terminal=false
+Categories=Settings;

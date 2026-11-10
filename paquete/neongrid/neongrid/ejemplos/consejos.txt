@@ -1,0 +1,5 @@
+# Una frase por línea; el dirigible las irá rotando. Las líneas con # se ignoran.
+# Si borras este fichero se usan los consejos por defecto.
+Un paso pequeño cada día.
+Primero que funcione, luego que sea bonito.
+Haz commit antes de probar algo arriesgado.

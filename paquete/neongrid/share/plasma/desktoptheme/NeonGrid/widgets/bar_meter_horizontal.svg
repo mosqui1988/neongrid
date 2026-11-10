@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="4" height="76" viewBox="0 0 4 76" shape-rendering="crispEdges">
+<g id="bar-inactive-topleft" transform="translate(0,0)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="1" fill="#513998"/>
+<rect x="0" y="1" width="1" height="1" fill="#513998"/>
+<rect x="1" y="1" width="1" height="1" fill="#0b0e1a"/>
+</g>
+<g id="bar-inactive-top" transform="translate(0,3)">
+<rect width="4" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="1" fill="#513998"/>
+<rect x="0" y="1" width="4" height="1" fill="#0b0e1a"/>
+</g>
+<g id="bar-inactive-topright" transform="translate(0,6)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="1" fill="#513998"/>
+<rect x="0" y="1" width="1" height="1" fill="#0b0e1a"/>
+<rect x="1" y="1" width="1" height="1" fill="#513998"/>
+</g>
+<g id="bar-inactive-left" transform="translate(0,9)">
+<rect width="2" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="4" fill="#513998"/>
+<rect x="1" y="0" width="1" height="4" fill="#0b0e1a"/>
+</g>
+<g id="bar-inactive-center" transform="translate(0,14)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#0b0e1a"/>
+</g>
+<g id="bar-inactive-right" transform="translate(0,19)">
+<rect width="2" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="4" fill="#0b0e1a"/>
+<rect x="1" y="0" width="1" height="4" fill="#513998"/>
+</g>
+<g id="bar-inactive-bottomleft" transform="translate(0,24)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="1" fill="#513998"/>
+<rect x="1" y="0" width="1" height="1" fill="#0b0e1a"/>
+<rect x="0" y="1" width="2" height="1" fill="#513998"/>
+</g>
+<g id="bar-inactive-bottom" transform="translate(0,27)">
+<rect width="4" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="1" fill="#0b0e1a"/>
+<rect x="0" y="1" width="4" height="1" fill="#513998"/>
+</g>
+<g id="bar-inactive-bottomright" transform="translate(0,30)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="1" fill="#0b0e1a"/>
+<rect x="1" y="0" width="1" height="1" fill="#513998"/>
+<rect x="0" y="1" width="2" height="1" fill="#513998"/>
+</g>
+<g id="bar-active-topleft" transform="translate(0,33)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="1" fill="#00e5ff"/>
+<rect x="0" y="1" width="1" height="1" fill="#00e5ff"/>
+<rect x="1" y="1" width="1" height="1" fill="#048fa3"/>
+</g>
+<g id="bar-active-top" transform="translate(0,36)">
+<rect width="4" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="1" fill="#00e5ff"/>
+<rect x="0" y="1" width="4" height="1" fill="#048fa3"/>
+</g>
+<g id="bar-active-topright" transform="translate(0,39)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="2" height="1" fill="#00e5ff"/>
+<rect x="0" y="1" width="1" height="1" fill="#048fa3"/>
+<rect x="1" y="1" width="1" height="1" fill="#00e5ff"/>
+</g>
+<g id="bar-active-left" transform="translate(0,42)">
+<rect width="2" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="4" fill="#00e5ff"/>
+<rect x="1" y="0" width="1" height="4" fill="#048fa3"/>
+</g>
+<g id="bar-active-center" transform="translate(0,47)">
+<rect width="4" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="4" fill="#048fa3"/>
+</g>
+<g id="bar-active-right" transform="translate(0,52)">
+<rect width="2" height="4" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="4" fill="#048fa3"/>
+<rect x="1" y="0" width="1" height="4" fill="#00e5ff"/>
+</g>
+<g id="bar-active-bottomleft" transform="translate(0,57)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="1" fill="#00e5ff"/>
+<rect x="1" y="0" width="1" height="1" fill="#048fa3"/>
+<rect x="0" y="1" width="2" height="1" fill="#00e5ff"/>
+</g>
+<g id="bar-active-bottom" transform="translate(0,60)">
+<rect width="4" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="1" fill="#048fa3"/>
+<rect x="0" y="1" width="4" height="1" fill="#00e5ff"/>
+</g>
+<g id="bar-active-bottomright" transform="translate(0,63)">
+<rect width="2" height="2" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="1" fill="#048fa3"/>
+<rect x="1" y="0" width="1" height="1" fill="#00e5ff"/>
+<rect x="0" y="1" width="2" height="1" fill="#00e5ff"/>
+</g>
+<g id="hint-tile-center" transform="translate(0,66)">
+<rect width="1" height="1" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="1" height="1" fill="#ff00ff" fill-opacity="0"/>
+</g>
+<g id="hint-bar-size" transform="translate(0,68)">
+<rect width="4" height="8" fill="#000" fill-opacity="0"/>
+<rect x="0" y="0" width="4" height="8" fill="#f0f" fill-opacity="0"/>
+</g>
+</svg>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+  <kcfgfile name=""/>
+  <!-- Lo que no se toca aqui se lee de ~/.config/neongrid/config.json (lo escribe el asistente). -->
+  <group name="General">
+    <entry name="Calma" type="Bool">
+      <label>Calm mode: no rain, no blinking</label>
+      <default>false</default>
+    </entry>
+    <entry name="Demo" type="Bool">
+      <label>Demo data (also enabled by the empty file ~/.config/neongrid/demo)</label>
+      <default>false</default>
+    </entry>
+    <entry name="Idioma" type="String">
+      <label>Language: auto, es or en (auto = config.json, then system locale)</label>
+      <default>auto</default>
+    </entry>
+    <entry name="Carteles" type="String">
+      <label>Comma separated list of hidden signs (empty = use config.json)</label>
+      <default></default>
+    </entry>
+    <entry name="Ciudad" type="String">
+      <label>Optional "lat,lon" for solar time (empty = config.json, then system time zone)</label>
+      <default></default>
+    </entry>
+    <entry name="Calidad" type="Int">
+      <label>-1 automatic, 0 static, 1 low, 2 high</label>
+      <default>-1</default>
+    </entry>
+    <entry name="Escala" type="Int">
+      <label>Pixel scale (0 = automatic integer scale)</label>
+      <default>0</default>
+    </entry>
+    <entry name="IntervaloDatos" type="Int">
+      <label>Seconds between data refreshes</label>
+      <default>2</default>
+    </entry>
+    <entry name="HoraSimulada" type="Double">
+      <label>Simulated hour 0-24 for previews (-1 = real time)</label>
+      <default>-1</default>
+    </entry>
+  </group>
+</kcfg>

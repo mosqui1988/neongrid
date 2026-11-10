@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Desinstalar NeonGrid
+Name[en]=Uninstall NeonGrid
+Comment=Revierte tus ajustes y borra NeonGrid del todo
+Comment[en]=Restores your settings and deletes NeonGrid completely
+Exec=sh -c "cd \\"\\${1%%/*}\\" && exec ./desinstalar.sh --grafico" _ %k
+Icon=edit-delete
+Terminal=false
+Categories=Settings;

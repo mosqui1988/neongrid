@@ -1,0 +1,11 @@
+{
+  "_comentario": "Configuración de NeonGrid. Cópiala a ~/.config/neongrid/config.json y edítala.",
+  "idioma": "auto",
+  "calma": false,
+  "carteles": {
+    "hora": true, "sistema": true, "net": true, "cpu": true, "vpn": true, "sync": true,
+    "drones": true, "repos": true, "bar": true, "consejos": true, "lluvia": true
+  },
+  "ciudad": null,
+  "_ciudad_ejemplo": {"lat": 40.4, "lon": -3.7}
+}

@@ -1,0 +1,89 @@
+{
+ "modos": {
+  "noche": {
+   "ventanas": 363050,
+   "ventanas_animadas": 29959
+  },
+  "dia": {
+   "ventanas": 174598,
+   "ventanas_animadas": 6979
+  },
+  "amanecer": {
+   "ventanas": 212245,
+   "ventanas_animadas": 18208
+  },
+  "atardecer": {
+   "ventanas": 281279,
+   "ventanas_animadas": 23636
+  }
+ },
+ "relaciones": {
+  "16x10": {
+   "tam": [
+    960,
+    600
+   ],
+   "oy": 0,
+   "bytes": {
+    "geo.png": 17969,
+    "via.png": 8746,
+    "vista-noche.png": 105949,
+    "escena-noche.png": 214436,
+    "vista-dia.png": 85793,
+    "escena-dia.png": 164324,
+    "vista-amanecer.png": 88807,
+    "escena-amanecer.png": 179880,
+    "vista-atardecer.png": 95975,
+    "escena-atardecer.png": 195811
+   },
+   "bytes_por_modo": {
+    "noche": 347100,
+    "dia": 276832,
+    "amanecer": 295402,
+    "atardecer": 318501
+   },
+   "colores_vista": {
+    "noche": 38,
+    "dia": 38,
+    "amanecer": 38,
+    "atardecer": 41
+   }
+  },
+  "16x9": {
+   "tam": [
+    960,
+    540
+   ],
+   "oy": 12,
+   "bytes": {
+    "geo.png": 17139,
+    "via.png": 7697,
+    "vista-noche.png": 99172,
+    "escena-noche.png": 201686,
+    "vista-dia.png": 80507,
+    "escena-dia.png": 154835,
+    "vista-amanecer.png": 82545,
+    "escena-amanecer.png": 168147,
+    "vista-atardecer.png": 89429,
+    "escena-atardecer.png": 183687
+   },
+   "bytes_por_modo": {
+    "noche": 325694,
+    "dia": 260178,
+    "amanecer": 275528,
+    "atardecer": 297952
+   },
+   "colores_vista": {
+    "noche": 38,
+    "dia": 38,
+    "amanecer": 38,
+    "atardecer": 41
+   }
+  }
+ },
+ "shaders": {
+  "escena.frag": 69640,
+  "pixel.frag": 1716
+ },
+ "segundos": 21.3
+}

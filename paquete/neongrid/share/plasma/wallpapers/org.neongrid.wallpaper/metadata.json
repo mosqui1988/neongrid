@@ -1,0 +1,21 @@
+{
+    "KPackageStructure": "Plasma/Wallpaper",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "NeonGrid"
+            }
+        ],
+        "Category": "",
+        "Description": "Animated pixel-art city where every sign shows live system data",
+        "Description[es]": "Ciudad pixel animada donde cada cartel muestra datos reales del sistema",
+        "Icon": "preferences-desktop-wallpaper",
+        "Id": "org.neongrid.wallpaper",
+        "License": "GPL-3.0-or-later",
+        "Name": "NeonGrid",
+        "Version": "1.0.0",
+        "Website": "https://github.com/mosqui1988/neongrid"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-KDE-ParentApp": "org.kde.plasmashell"
+}

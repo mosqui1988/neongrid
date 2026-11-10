@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=NeonGrid
+Name[es]=NeonGrid
+Comment=Pixel-art cyberpunk window decoration: bevelled corners, neon border, cyan when active, violet when inactive
+Comment[es]=Decoracion de ventanas cyberpunk en pixel art: esquinas biseladas, borde neon, cian activa y violeta inactiva
+Type=Service
+X-KDE-PluginInfo-Name=NeonGrid
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-License=GPL-2.0+

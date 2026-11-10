@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Quitar NeonGrid
+Name[en]=Remove NeonGrid
+Comment=Deja tu escritorio como estaba (no borra NeonGrid)
+Comment[en]=Restores your previous desktop (keeps NeonGrid files)
+Exec=sh -c "cd \\"\\${1%%/*}\\" && exec ./revertir.sh --grafico" _ %k
+Icon=edit-undo
+Terminal=false
+Categories=Settings;
